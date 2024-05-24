@@ -13,7 +13,7 @@ Welcome to the OverTheWire CTF Challenges Repository! This repository contains s
 The Bandit wargame is perfect for absolute beginners. It will teach you the basics needed to be successful in completing other wargames.
 
 - **Location**: [Bandit](https://overthewire.org/wargames/bandit/)
-- **Difficulty**: Beginner
+- **Difficulty**: Beginner 
 - **Topics Covered**: Basic Linux commands, file permissions, SSH, and more.
 
 ## Leviathan

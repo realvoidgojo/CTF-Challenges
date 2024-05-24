@@ -24,6 +24,12 @@ where Burp Suite is a set of tools used for penetration testing of web applicati
 
 ⚠️ **Disclaimer**: This solution was generated in May 2024. If you are accessing this information at a later date, please note that circumstances may have changed. Different levels of flags, variations in levels, and even new levels altogether might have been introduced. Please verify the most current and relevant information before making any decisions based on this content.
 
+To Install Requests Module , use `pip3` if your doesn't have pip.
+
+```
+pip install requests
+```
+
 ### Natas 0
 
 Next Level Hash Password just stored in source file of natas0s
