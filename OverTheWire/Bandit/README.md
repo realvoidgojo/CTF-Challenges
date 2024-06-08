@@ -582,9 +582,8 @@ Then ,
 
 Good job getting a shell! Now hurry and grab the password for bandit27!.
 
-Don't use flag , use ssh_private.key , to connect
 Try to Connect the labs if it is immediately closed then,
-
+Don't use flag , use ssh_private.key got from previous level ,to connect ,but 
 zoom in the terminal as much as possible and resize into small . go to `more`
 if you see `more` then press `v` to enter vi's edit mode
 
