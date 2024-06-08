@@ -755,8 +755,7 @@ After all this git stuff its time for another escape. Good luck!
 `$0` If the $0 special variable is used within a Bash script, it can be used to print its name and if it is used directly within the terminal, it can be used to display the name of the current shell. , but we will unlock the shell, u won't get response every commands in `$0` shell
 
 ```bash
-mkdir /tmp/kali
-cd /tmp/kali
+$0
 cat /etc/bandit_pass/bandit33
 # That's all
 ```
