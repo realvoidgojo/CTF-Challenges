@@ -2,10 +2,10 @@ CTF | OverTheWire | Bandit
 
 prerequisite
 
-- git
-- basic networking tools (nc,nmap)
-- basic linux cmds like (ls,mkdir,rm,cd,cat)
-- bash scripting
+- Git
+- Basic networking tools (nc,nmap)
+- Basic linux commands like (ls,mkdir,rm,cd,cat)
+- Bash scripting
 
 SSH protocol (also referred to as Secure Shell) is a method for secure remote login from one computer to another. It provides several alternative options for strong authentication, and it protects the communications security and integrity with strong encryption
 
@@ -71,7 +71,7 @@ cat spaces\ in\ this\ filename
 or
 
 ```
-cat spaces in this filename
+cat "spaces in this filename"
 ```
 
 ---
@@ -129,7 +129,7 @@ The password for the next level is stored **somewhere on the server** and has al
 • 33 bytes in size
 <br>
 
-`/`- refers from the root directory | `2>/dev/null` will redirect results which doesn't permissions
+`/`- refers from the root directory, `2>/dev/null` will redirect results which doesn't permissions
 
 ```bash
 find / -size 33c -user bandit7 -group bandit6 2>/dev/null
@@ -171,7 +171,7 @@ cat data.txt | strings | grep "="
 #### **Level10:**
 
 The password for the next level is stored in the file data.txt, which contains base64 encoded data  
-`base64 -d` -> refers todecode base64
+`base64 -d` -> refers to decode from base64
 
 ```bash
 cat data.txt | base64 -d
@@ -182,13 +182,13 @@ cat data.txt | base64 -d
 #### **Level11:**
 
 password for level is stored in the file, where all lowercase and uppercase have been rot13  
-copy the data.txt
+copy the data.txt in your clipboard
 
 ```bash
 cat data.txt
 ```
 
-`apt install bsdgames` it has `ceaser` or `rot13` to decode rot13 string in your local , machine,
+`apt install bsdgames` it has `rot13` program to decode rot13 string in your local machine, after you installed using bsd games
 
 ```bash
 echo "encoded_string" | rot13
@@ -317,7 +317,7 @@ cat /etc/bandit_pass/bandit16
 openssl s_client -connect localhost:31790
 ```
 
-copy the rsa private key and save as bandit17rsa in loc machine
+copy the rsa private key and save as `bandit17rsa` in local machine
 
 ```bash
 chmod 700 bandit17rsa
@@ -366,7 +366,7 @@ To gain access to the next level, you should use the setuid binary in the homedi
 
 There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a command-line argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).
 
-make 2 terminal first create sever `nc -lvp` -l (listen) -v (verbose) -p (port)
+make 2 terminal , first create sever `nc -lvp` -l (listen) -v (verbose) -p (port)
 
 ```bash
 nc -lvp 8888
@@ -378,7 +378,7 @@ at another terminal make listener connect to created server using subconnect
 ./suconnect 8888
 ```
 
-if we give current bandit20 password at server shell that means at nc -lvp 8888 we get next level password hash may be different GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+if we give current bandit20 password at `server shell` that means at nc -lvp 8888 we get next level password flag , give current level flag -> `GbKksEFF4yrVs6il55v6gwY5aVje5f0j`
 
 ---
 
@@ -432,7 +432,8 @@ echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
 command return filename which has a password next level
 
 ```bash
-echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+echo "I am user bandit23" | md5sum | cut -d ' ' -f 1
+$ 8ca319486bfbbc3663ea0fbe81326349
 cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 ```
 
@@ -458,7 +459,7 @@ it has different bash file
 myname=$(whoami)
 
 cd /var/spool/$myname
-echo "Executing and deleting all scripts in /var/spool/$myname:"
+echo "Executing and deleting all scripts in /var/spool/$myname/foo:"
 for i in * .*;
 do
 if [ "$i" != "." -a "$i" != ".." ];
@@ -486,13 +487,11 @@ create a own bash file `nano get.sh` ,`ctrl+o` to save , `ctrl+x` to exit
 cat /etc/bandit_pass/bandit24 > /tmp/har3/passwd.txt
 ```
 
-after creating bash ,enable execute previlege by `chmod`(change_mode) cmd
+after creating bash ,enable execute previlege by `chmod` (change_mode) commandd
 
 ```bash
-chmod 777 get.sh
-cp get.sh /var/spool/bandit24/
-cd /var/spool/bandit24/
-cd /tmp/har3
+chmod 700 get.sh
+cp get.sh /var/spool/bandit24/foo
 ls /tmp/har3/
 cat /tmp/har3/passwd.txt
 ```
@@ -535,11 +534,14 @@ Logging in to bandit26 from bandit25 should be fairly easy… The shell for user
 
 ```bash
 ls
-file/usr/bin/showtext
+cat /etc/passwd
+# we got level 26 has /usr/bin/showtext , let's see the content
+file /usr/bin/showtext
 cat /usr/bin/showtext
+exit
 ```
 
-showtext content
+`showtext` content -> this show `TERM=linux`
 
 ```bash
 #!/bin/sh
@@ -552,16 +554,26 @@ exit 0
 
 ```bash
 ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org -p 2220
+# it closed immediately , so save bandit26.sshkey as bandit26rsa , try from local machine
 ```
 
-zoom in the terminal as much as possible and resize into small `yes` . go to `more`
-if you see `more` then press `v` to enter vi's edit mode
+```bash
+nano bandit26rsa
+chmod 700 banditrsa
+ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org -p 2220
+# but dont execute last command
+```
+
+zoom in the terminal as much as possible , then execute cmd and resize into small `yes` . go to `more`
+if you see `more` then press `v` to enter vi's edit mode , access vi options using `:`
 
 ```
 :set shell=/bin/bash
 :sh
+@bandit26
 ```
 
+Then ,
 `cat /etc/bandit_pass/bandit26 `
 
 ---
@@ -570,7 +582,8 @@ if you see `more` then press `v` to enter vi's edit mode
 
 Good job getting a shell! Now hurry and grab the password for bandit27!.
 
-Try to Connect the labs if it is immediately closed then
+Don't use flag , use ssh_private.key , to connect
+Try to Connect the labs if it is immediately closed then,
 
 zoom in the terminal as much as possible and resize into small . go to `more`
 if you see `more` then press `v` to enter vi's edit mode
@@ -580,7 +593,7 @@ if you see `more` then press `v` to enter vi's edit mode
 :shell
 ```
 
-you will login as bandit26 then `ls -la
+you will login as bandit26 then `ls -la`
 
 ```bash
 ./bandit27-do cat /etc/bandit_pass/bandit27
@@ -739,23 +752,13 @@ git push
 
 After all this git stuff its time for another escape. Good luck!
 
-`$0` If the $0 special variable is used within a Bash script, it can be used to print its name and if it is used directly within the terminal, it can be used to display the name of the current shell.
+`$0` If the $0 special variable is used within a Bash script, it can be used to print its name and if it is used directly within the terminal, it can be used to display the name of the current shell. , but we will unlock the shell, u won't get response every commands in `$0` shell
 
 ```bash
 mkdir /tmp/kali
 cd /tmp/kali
 cat /etc/bandit_pass/bandit33
-nano SCRIPT.SH
-```
-
-```bash
-#!/bin/bash
-cat /etc/bandit_pass/bandit33
-```
-
-```bash
-chmod +x SCRIPT.SH
-./SCRIPT.SH
+# That's all
 ```
 
 ---

