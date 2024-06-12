@@ -7,6 +7,7 @@ Welcome to the OverTheWire CTF Challenges Repository! This repository contains s
 - [Bandit](/OverTheWire/Bandit/)
 - [Leviathan](/OverTheWire/Leviathan/)
 - [Natas](/OverTheWire/Natas/)
+- [Krypton](/OverTheWire/Krypton/)
 
 ## Bandit
 
