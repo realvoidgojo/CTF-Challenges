@@ -8,6 +8,7 @@ Welcome to the CTF Challenges Repository! This repository contains a curated lis
   - [Bandit](/OverTheWire/Bandit/) ( Completed 0 -33 )
   - [Leviathan](/OverTheWire/Leviathan/) ( Completed 0-7 )
   - [Natas](/OverTheWire/Natas/) (Completed 0-33 )
+  - [Krypton](/OverTheWire/Krypton/) (Completed 0-7)
   - [Coming Soon](#coming-soon-overthewire)
 - [VulnHub](#vulnhub)
   - [Kioptrix](#kioptrix)
