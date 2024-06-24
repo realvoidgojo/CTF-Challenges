@@ -224,7 +224,7 @@ if __name__=="__main__":
 
 https://www.101computing.net/frequency-analysis/
 
-<img src="img/Pasted image 20240609144411.png" alt="Example Image" width="1080"/>
+<img src="img/Pasted image 20240609144411.png" alt="Example Image" width="700"/>
 
 Let make upload this frequency analysis script to krpton3 labs using scp
 
@@ -315,7 +315,7 @@ tr [JDSQUBNGCZVWMYTXKELAFIORHP] [THEASORNICLDUPYFWGMBKVXQJZ]
 
 I made distribution map for above data analysis
 
-<img src="img/Pasted image 20240609221503.png" alt="Example Image" width="1080"/>
+<img src="img/Pasted image 20240609221503.png" alt="Example Image" width="650"/>
 
 ```
 cat /krypton/krypton3/krypton4 | tr 'SQJUBNGCDZVWMYTXKELAFIORHP' 'EATSORNIHCLDUPYFWGMBKVXQJZ'
