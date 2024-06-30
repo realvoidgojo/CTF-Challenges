@@ -23,7 +23,7 @@ Nmap done: 256 IP addresses (3 hosts up) scanned in 2.91 seconds
 
 we got machine running on 192.168.69.6
 
-<img src="/../img/Pasted image 20240529095558.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240529095558.png" alt="Example Image" width="1080"/>
 
 Version Scan
 
