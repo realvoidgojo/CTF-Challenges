@@ -163,7 +163,7 @@ Interesting Finding(s):
 
 By Gobuster we got to know a path `hidden` , we got msg say  username `C0ldd` `Hugo` `Philip`
 
-<img src="/img/Pasted image 20240625130037.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625130037.png" alt="Example Image" width="1080"/>
 
 Let Use Dictionary attack , with user `C0ldd`
 
@@ -175,36 +175,36 @@ sudo wpscan --url http://192.168.69.4  -U c0ldd -P /usr/share/wordlists/rockyou.
 
 192.168.69.4/wp-admin
 
-<img src="/img/Pasted image 20240625131247.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625131247.png" alt="Example Image" width="1080"/>
 
 we got a admin access , its running Twenty Fifteen Theme
 
-<img src="/img/Pasted image 20240625131524.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625131524.png" alt="Example Image" width="1080"/>
 
 Go to Appearance --> Editor --> 404.php
 
-<img src="/img/Pasted image 20240625131953.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625131953.png" alt="Example Image" width="1080"/>
 
 download this php reverse shell from monkey pentest  , modify the ip and port your machine 
 
 https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
 
-<img src="/img/Pasted image 20240625132123.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625132123.png" alt="Example Image" width="1080"/>
 
 copy that file and paste in 404.php , and upload 
 
-<img src="/img/Pasted image 20240625132232.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625132232.png" alt="Example Image" width="1080"/>
 
 start listener using netcat , at specified port , go to 404 error page 
 
 http://192.168.69.4/wp-content/themes/twentyfifteen/404.php
 
 
-<img src="/img/Pasted image 20240625132611.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625132611.png" alt="Example Image" width="1080"/>
 
 we got a shell , but import proper bin/bash using python
 
-<img src="/img/Pasted image 20240625132952.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625132952.png" alt="Example Image" width="1080"/>
 
 in C0ldd folder we can't have privilege to cat user.txt , 
 
@@ -214,7 +214,7 @@ find / -perm -4000 -type f 2>/dev/null
 
 This command find which command as root `suid` permission 
 \
-<img src="/img/Pasted image 20240625133306.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625133306.png" alt="Example Image" width="1080"/>
 
 `find` command can be used to escalate root privilege  
 
@@ -226,7 +226,7 @@ form gtfobins we know and can have have root shell
 find . -exec /bin/sh -p \; -quit
 ```
 
-<img src="/img/Pasted image 20240625133834.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625133834.png" alt="Example Image" width="1080"/>
 
 we have been the machine , and got the root flag 
 
