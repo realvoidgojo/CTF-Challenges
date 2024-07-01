@@ -4,7 +4,7 @@ Welcome to the CTF Challenges Repository! This repository contains a curated lis
 
 ## Table of Contents
 
-- [OverTheWire](#overthewire)
+- [OverTheWire](/OverTheWire/)
   - [Bandit](/OverTheWire/Bandit/) ( Completed 0 -33 )
   - [Leviathan](/OverTheWire/Leviathan/) ( Completed 0-7 )
   - [Natas](/OverTheWire/Natas/) (Completed 0-33 )
