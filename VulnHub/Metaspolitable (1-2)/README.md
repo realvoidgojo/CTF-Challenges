@@ -18,7 +18,7 @@ Metasploitable 1 is an intentionally vulnerable Linux virtual machine based on U
 ### Machine
 
 - [Metasploitable 1](https://www.vulnhub.com/entry/metasploitable-1,28/)
-- [Solution](/Metasploitable%201)
+- [Solution](/Metasploitable%201/)
 
 ## Metasploitable 2
 
@@ -29,7 +29,7 @@ Metasploitable 2 is another vulnerable virtual machine commonly used for securit
 ### Machine
 
 - [Metasploitable 2](https://www.vulnhub.com/entry/metasploitable-2,29/)
-- [Solution](/Metasploitable%202)
+- [Solution](/Metasploitable%202/)
 
 ---
 
