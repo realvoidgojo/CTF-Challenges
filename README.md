@@ -11,10 +11,10 @@ Welcome to the CTF Challenges Repository! This repository contains a curated lis
   - [Krypton](/OverTheWire/Krypton/) (Completed 0-7)
   - [Coming Soon](#coming-soon-overthewire)
 - [VulnHub](/VulnHub/)
-  - [Kioptrix](</VulnHub/Kioptrix%20(1-5)/>)
-  - [Metasploitable](</VulnHub/Metaspolitable%20(1-2)/>)
-  - [ColddBox](/VulnHub/ColddBox/)
-  - [MrRobot](/VulnHub/MrRobot/)
+  - [Kioptrix](</VulnHub/Kioptrix%20(1-5)/>) (Completed 1-5)
+  - [Metasploitable](</VulnHub/Metaspolitable%20(1-2)/>) (Completed 1-2)
+  - [ColddBox](/VulnHub/ColddBox/) (Completed)
+  - [MrRobot](/VulnHub/MrRobot/) (Completed)
 
 ## How to Contribute
 
