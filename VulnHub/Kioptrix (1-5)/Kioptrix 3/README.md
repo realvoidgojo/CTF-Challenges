@@ -1,4 +1,5 @@
 # Kioptrix: Level 1.2 AKA Kioptrix 3
+
 ### Solved using without Metasploit
 
 Let scan for kioptrix 3 machine , solved using Metasploit
@@ -6,7 +7,7 @@ Let scan for kioptrix 3 machine , solved using Metasploit
 Ping Scan
 
 ```
-sudo nmap -sn 192.168.69.0/24
+sudo nmap -sn -oN host_discovery.txt 192.168.69.0/24
 
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-22 21:45 CDT
 Nmap scan report for 192.168.69.1
@@ -29,7 +30,7 @@ we know that machine running on `192.168.69.9`
 <img src="../img/Pasted image 20240623081743.png" alt="Example Image" width="1080"/>
 
 <img src="../img/Pasted image 20240623081822.png" alt="Example Image" width="1080"/>
-<img src="../img/Pasted image 20240623081851.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623081851.png" alt="Example Image" width="600"/>
 
 we got the login with LotusCMS - it is a content management system built using PHP
 
@@ -41,7 +42,7 @@ Let explore `/gallery` path , so we have to set name for the machine ip in `/etc
 
 <img src="../img/Pasted image 20240623082324.png" alt="Example Image" width="1080"/>
 
-Let , recon using `nmap -AF 192.168.69.9` , -AF refer Aggressive and Fast scan
+Let , recon using `nmap -AF -oN full_scan.txt 192.168.69.9` , -AF refer Aggressive and Fast scan
 
 ```
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-22 21:54 CDT
@@ -128,7 +129,7 @@ sudo ht # asking passoword
 
 We know it's running on php , let explore its config for further enumeration
 
-<img src="../img/Pasted image 20240623084838.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623084838.png" alt="Example Image" width="700"/>
 
 ```
 cd ..
@@ -158,12 +159,13 @@ cat gconfig.php
 
 <img src="../img/Pasted image 20240623085256.png" alt="Example Image" width="1080"/>
 
-we got creds for mysql database , directory travasal recon `sudo dirb http://192.168.69.9`
+we got creds for mysql database , directory traversal recon `sudo dirb http://192.168.69.9`
 
 <img src="../img/Pasted image 20240623085556.png" alt="Example Image" width="1080"/>
+
 Give the login credentials
 
-<img src="../img/Pasted image 20240623085626.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623085626.png" alt="Example Image" width="800"/>
 
 Explored the Table page , noted a table called `dev-accounts`,so view the dev-accounts table
 <img src="../img/Pasted image 20240623085704.png" alt="Example Image" width="1080"/>
@@ -176,7 +178,7 @@ We got a two hashed
 
 https://www.tunnelsup.com/hash-analyzer/
 
-<img src="../img/Pasted image 20240623085900.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623085900.png" alt="Example Image" width="800"/>
 
 We know it's a MD5 Hash, let start a dictionary attack by hashcat
 
@@ -185,9 +187,9 @@ We have alternate solution called cracking station site on online but we stick t
 Rockyou.txt file has a bunch of common password
 https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 
-<img src="../img/Pasted image 20240623090718.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623090718.png" alt="Example Image" width="800"/>
 
-<img src="../img/Pasted image 20240623090726.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240623090726.png" alt="Example Image" width="400"/>
 
 ```
 # Note

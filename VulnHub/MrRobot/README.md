@@ -91,7 +91,7 @@ log=Elliot&pwd=&wp-submit=Log+In&redirect_to=http%3A%2F%2F192.168.69.10%2Fwp-adm
 
 <img src="./img/Pasted image 20240626203447.png" alt="Example Image" width="1080"/>
 
-fgo to payloads and Load `fsociety.dic` 
+go to payloads option and Load `fsociety.dic` 
 
 <img src="./img/Pasted image 20240626203615.png" alt="Example Image" width="1080"/>
 

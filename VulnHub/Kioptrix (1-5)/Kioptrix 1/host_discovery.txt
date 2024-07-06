@@ -1,0 +1,8 @@
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-28 23:24 CDT
+Nmap scan report for 192.168.69.1
+Host is up (0.00022s latency).
+Nmap scan report for 192.168.69.5
+Host is up (0.00013s latency).
+Nmap scan report for 192.168.69.6                <<<<<< vuln machine
+Host is up (0.00046s latency).
+Nmap done: 256 IP addresses (3 hosts up) scanned in 2.91 seconds

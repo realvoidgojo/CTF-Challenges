@@ -1,4 +1,5 @@
 # Kioptrix: Level 1.3 AKA Kioptrix 4
+
 ### Solved using Metasploit
 
 Host discovery
@@ -35,7 +36,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.44 seconds
 
 it has a login page for member
 
-<img src="../img/Pasted image 20240625180317.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240625180317.png" alt="Example Image" width="700"/>
 
 URI Recon (Directory Traversal )
 

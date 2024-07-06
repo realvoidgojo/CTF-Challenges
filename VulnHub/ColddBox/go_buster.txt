@@ -1,0 +1,31 @@
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.69.4
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Extensions:              html,xml,txt,php
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/.php                 (Status: 403) [Size: 277]
+/.html                (Status: 403) [Size: 277]
+/index.php            (Status: 301) [Size: 0] [--> http://192.168.69.4/]
+/wp-content           (Status: 301) [Size: 317] [--> http://192.168.69.4/wp-content/]
+/wp-login.php         (Status: 200) [Size: 2547]
+/license.txt          (Status: 200) [Size: 19930]
+/wp-includes          (Status: 301) [Size: 318] [--> http://192.168.69.4/wp-includes/]
+/readme.html          (Status: 200) [Size: 7173]
+/wp-trackback.php     (Status: 200) [Size: 135]
+/wp-admin             (Status: 301) [Size: 315] [--> http://192.168.69.4/wp-admin/]
+/hidden               (Status: 301) [Size: 313] [--> http://192.168.69.4/hidden/]
+/xmlrpc.php           (Status: 200) [Size: 42]
+/.php                 (Status: 403) [Size: 277]
+/.html                (Status: 403) [Size: 277]
+/wp-signup.php        (Status: 302) [Size: 0] [--> /wp-login.php?action=register]
+/server-status        (Status: 403) [Size: 277]

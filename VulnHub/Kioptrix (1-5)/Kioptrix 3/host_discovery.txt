@@ -1,0 +1,14 @@
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-22 21:45 CDT
+Nmap scan report for 192.168.69.1
+Host is up (0.00013s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 192.168.69.2
+Host is up (0.00010s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 192.168.69.3
+Host is up (0.00011s latency).
+MAC Address: 08:00:27:D7:FC:16 (Oracle VirtualBox virtual NIC)
+Nmap scan report for kioptrix3.com (192.168.69.9)  <<<<<<<<<<<<
+Host is up (0.00023s latency).
+MAC Address: 08:00:27:AC:33:02 (Oracle VirtualBox virtual NIC)
+Nmap scan report for 192.168.69.5

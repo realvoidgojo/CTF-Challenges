@@ -1,0 +1,10 @@
+nmap -p 3306 --script mysql-info -sV 192.168.69.11
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-25 07:56 CDT
+Nmap scan report for 192.168.69.11
+Host is up (0.0052s latency).
+
+PORT     STATE    SERVICE VERSION
+3306/tcp filtered mysql
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 0.44 second

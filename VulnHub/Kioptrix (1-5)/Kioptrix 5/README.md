@@ -64,7 +64,7 @@ we got a path `/pChart2.1.3/index.php` , include these in host ip
 
 we got a control management page
 
-<img src="../img/Pasted image 20240626114410.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240626114410.png" alt="Example Image" width="700"/>
 
 search for exploit for pchart 2.1.3
 
@@ -111,7 +111,7 @@ copied into the production environment.
 
 add this `examples/index.php?Action=View&Script=%2f..%2f..%2fetc/passwd` to `ip_address/pChart2.1.3`/ path
 
-<img src="../img/Pasted image 20240626115746.png" alt="Example Image" width="1080"/>
+<img src="../img/Pasted image 20240626115746.png" alt="Example Image" width="700"/>
 
 yes , it vulnerable to directory traversal , by using this let explore the site's config file
 

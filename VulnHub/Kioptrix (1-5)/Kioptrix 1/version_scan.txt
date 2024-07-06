@@ -1,0 +1,11 @@
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-28 23:27 CDT
+Nmap scan report for 192.168.69.6
+Host is up (0.00042s latency).
+Not shown: 994 closed tcp ports (conn-refused)
+PORT      STATE SERVICE     VERSION
+22/tcp    open  ssh         OpenSSH 2.9p2 (protocol 1.99)
+80/tcp    open  http        Apache httpd 1.3.20 ((Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b)
+111/tcp   open  rpcbind     2 (RPC #100000)
+139/tcp   open  netbios-ssn Samba smbd (workgroup: MYGROUP)
+443/tcp   open  ssl/https   Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
+32768/tcp open  status      1 (RPC #100024)

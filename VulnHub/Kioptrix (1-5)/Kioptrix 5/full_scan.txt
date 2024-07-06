@@ -1,0 +1,22 @@
+
+# Nmap 7.94SVN scan initiated Wed Jun 26 00:57:58 2024 as: nmap -AF -oN full_scan.txt 192.168.0.170
+Nmap scan report for kioptrix2014 (192.168.0.170)
+Host is up (0.00017s latency).
+Not shown: 97 filtered tcp ports (no-response)
+PORT     STATE  SERVICE VERSION
+22/tcp   closed ssh
+80/tcp   open   http    Apache httpd 2.2.21 ((FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8)
+|_http-server-header: Apache/2.2.21 (FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8
+8080/tcp open   http    Apache httpd 2.2.21 ((FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8)
+|_http-server-header: Apache/2.2.21 (FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8
+MAC Address: 08:00:27:7D:26:2A (Oracle VirtualBox virtual NIC)
+Aggressive OS guesses: FreeBSD 7.0-RELEASE - 9.0-RELEASE (93%), Juniper MAG2600 SSL VPN gateway (IVE OS 7.3) (92%), Linksys WAP54G WAP (92%), ISS Proventia GX3002C firewall (Linux 2.4.18) (92%), Linux 2.6.20 (92%), Linux 2.6.18 (91%), Linux 2.6.23 (91%), Linux 2.6.24 (91%), FreeBSD 7.0-RC1 (91%), FreeBSD 7.0-STABLE (91%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.17 ms kioptrix2014 (192.168.0.170)
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Jun 26 00:58:34 2024 -- 1 IP address (1 host up) scanned in 36.91 seconds

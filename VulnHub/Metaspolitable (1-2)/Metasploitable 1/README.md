@@ -16,7 +16,7 @@ Service Version Scan
 Full Scan 
 
 ```
-nmap -AF 192.168.69.4
+nmap -AF -oN full_scan.txt 192.168.69.4
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-25 01:38 CDT
 Nmap scan report for 192.168.69.4
 Host is up (0.00051s latency).

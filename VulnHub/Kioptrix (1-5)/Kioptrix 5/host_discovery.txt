@@ -1,0 +1,9 @@
+# Nmap 7.94SVN scan initiated Wed Jun 26 00:52:23 2024 as: nmap -sn -oN host_discovery.txt 192.168.0.0/24
+Host is up (0.00013s latency).
+MAC Address: F0:A6:54:34:FF:45 (Cloud Network Technology Singapore PTE.)
+Nmap scan report for kioptrix2014 (192.168.0.170)
+Host is up (0.00011s latency).
+MAC Address: 08:00:27:7D:26:2A (Oracle VirtualBox virtual NIC)
+Nmap scan report for voidgojo (192.168.0.141)
+Host is up.
+# Nmap done at Wed Jun 26 00:52:25 2024 -- 256 IP addresses (4 hosts up) scanned in 1.89 seconds

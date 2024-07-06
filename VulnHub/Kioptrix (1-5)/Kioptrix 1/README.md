@@ -1,4 +1,5 @@
 # Kioptrix: Level 1
+
 ### Solved using Metasploit
 
 Let Host discovery from Attack machine , run `ifconifg` and note our machine ip `192.168.69.5` , so network IP range will be `192.168.69.0` - `192.168.69.255` with subnet of `255:225:225:0`
@@ -6,7 +7,7 @@ Let Host discovery from Attack machine , run `ifconifg` and note our machine ip 
 `-sn` Ping Scan Disable port
 
 ```
-nmap -sn 192.168.69.0/24
+nmap -sn -oN host_discovery.txt 192.168.69.0/24
 ```
 
 output
@@ -43,7 +44,7 @@ nmap -sV 192.168.69.6
 output
 
 ```
-└─$ nmap -sV 192.168.69.6
+└─$ nmap -sV -oN version_scan.txt 192.168.69.6
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-28 23:27 CDT
 Nmap scan report for 192.168.69.6
 Host is up (0.00042s latency).

@@ -1,0 +1,16 @@
+# Nmap 7.94SVN scan initiated Wed Jun 26 09:37:45 2024 as: nmap -sn -oN hosts.txt 192.168.69.0/24
+Nmap scan report for 192.168.69.1
+Host is up (0.00014s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 192.168.69.2
+Host is up (0.00011s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 192.168.69.3
+Host is up (0.00012s latency).
+MAC Address: 08:00:27:7B:80:2C (Oracle VirtualBox virtual NIC)
+Nmap scan report for 192.168.69.10
+Host is up (0.00017s latency).
+MAC Address: 08:00:27:16:C1:89 (Oracle VirtualBox virtual NIC)
+Nmap scan report for 192.168.69.5
+Host is up.
+# Nmap done at Wed Jun 26 09:37:47 2024 -- 256 IP addresses (5 hosts up) scanned in 2.10 seconds

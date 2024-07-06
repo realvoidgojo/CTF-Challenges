@@ -1,0 +1,31 @@
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          192.168.69.10
++ Target Hostname:    192.168.69.10
++ Target Port:        80
++ Start Time:         2024-06-26 09:48:00 (GMT-5)
+---------------------------------------------------------------------------
++ Server: Apache
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /rOMdbUxd.cs: Retrieved x-powered-by header: PHP/5.5.29.
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /index: Uncommon header 'tcn' found, with contents: list.
++ /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.html, index.php. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,https://exchange.xforce.ibmcloud.com/vulnerabilities/8275
++ /admin/: This might be interesting.
++ /image/: Drupal Link header found with value: <http://192.168.69.10/?p=23>; rel=shortlink. See: https://www.drupal.org/
++ /wp-links-opml.php: This WordPress script reveals the installed version.
++ /license.txt: License file found may identify site software.
++ /admin/index.html: Admin login page/section found.
++ /wp-login/: Cookie wordpress_test_cookie created without the httponly flag. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
++ /wp-login/: Admin login page/section found.
++ /wordpress/: A Wordpress installation was found.
++ /wp-admin/wp-login.php: Wordpress login found.
++ /wordpress/wp-admin/wp-login.php: Wordpress login found.
++ /blog/wp-login.php: Wordpress login found.
++ /wp-login.php: Wordpress login found.
++ /wordpress/wp-login.php: Wordpress login found.
++ /#wp-config.php#: #wp-config.php# file found. This file contains the credentials.
++ 8102 requests: 0 error(s) and 18 item(s) reported on remote host
++ End Time:           2024-06-26 09:50:22 (GMT-5) (142 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

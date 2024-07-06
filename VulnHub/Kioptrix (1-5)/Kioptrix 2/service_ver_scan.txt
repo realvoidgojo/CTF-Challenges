@@ -1,0 +1,11 @@
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-29 00:34 CDT
+Nmap scan report for 192.168.69.8
+Host is up (0.00040s latency).
+Not shown: 994 closed tcp ports (conn-refused)
+PORT     STATE SERVICE  VERSION
+22/tcp   open  ssh      OpenSSH 3.9p1 (protocol 1.99)
+80/tcp   open  http     Apache httpd 2.0.52 ((CentOS))
+111/tcp  open  rpcbind  2 (RPC #100000)
+443/tcp  open  ssl/http Apache httpd 2.0.52 ((CentOS))
+631/tcp  open  ipp      CUPS 1.1
+3306/tcp open  mysql    MySQL (unauthorized)
