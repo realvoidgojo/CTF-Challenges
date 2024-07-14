@@ -2857,7 +2857,7 @@ CBC Mode: CBC mode introduces diffusion, so even if plaintext blocks are identic
 
 By Above Result, we can conclude that is ECB cipher , it's AES (symmetric-key algorithm), there is a single key for both encryption and decryption , It's a block cipher we have find the block size
 
-![[Pasted image 20240515205000.png]]
+<img src="img/Pasted image 20240515205000.png" alt="Example Image" width="1080"/>
 
 Due to Block Cipher , we got PKCS#7 padding as response when messed up with string that means
 
@@ -3205,7 +3205,7 @@ SELECT * FROM all_tab_columns WHERE table_name = 'USERS'
 -------------------------------------------------------------------------------------------------------------
 ```
 
-![[Pasted image 20240517210147.png]]
+<img src="img/Pasted image 20240517210147.png" alt="Example Image" width="1080"/>
 
 injection phase
 
@@ -3340,7 +3340,7 @@ Its using `file=` as parameter , search cmd injection in Perl [https://stackover
 <img src="img/Pasted image 20240522190901.png" alt="Example Image" width="1080"/>
 
 let check with this payload `index.pl?file=| cat /etc/passwd%00|`
-![[Pasted image 20240522192830.png]]
+<img src="img/Pasted image 20240522192830.png" alt="Example Image" width="1080"/>
 Got these many results , so LFI working , get content of natas31 ,
 
 ```
@@ -3348,8 +3348,7 @@ Got these many results , so LFI working , get content of natas31 ,
 ```
 
 but Unlike we got `meeeeeep!` , let see cat the index.pl `|cat index.pl%00|`
-
-![[Pasted image 20240522193237.png]]
+<img src="img/Pasted image 20240522193237.png" alt="Example Image" width="1080"/>
 Its look like escaping `natas` word ,
 
 ```
