@@ -88,8 +88,8 @@ WAY OFF!!!!
 
 we executed the file , and gave bunch of "BBBBBBBBBBBBBBBBBBBBB" but as the result `val` has changed from `0x41414141` to `0x42424242` because in ASCII `B` refers has `42` , this showed there is a buffer overflow look at below image , it's in a stack structure that's the reason.
 
-<img src="img/Pasted image 20240716215301.png" alt="Example Image" width="1080"/>
-<img src="img/Pasted image 20240716224334.png" alt="Example Image" width="1080"/>
+<img src="img/Pasted image 20240716215301.png" alt="Example Image" width="600"/>
+<img src="img/Pasted image 20240716224334.png" alt="Example Image" width="400"/>
 
 Let use GDB Debugger for analyzing c code 
 
@@ -202,7 +202,7 @@ val: 0xdeadbeef
 
   `val` has successfully changed into `0xdeadbeef` but bash not working because the input stream closed.
   
-<img src="img/Pasted image 20240716223157.png" alt="Example Image" width="1080"/>
+<img src="img/Pasted image 20240716223157.png" alt="Example Image" width="400"/>
 
 `cat` command has a continuous input stream so pipe this with that executable file
 
@@ -657,7 +657,7 @@ The program no longer exists.
 
 again give payload and analyze `250wx`  , it was confusing there are some many `0x41414141`
 
-<img src="img/Pasted image 20240719200158.png" alt="Example Image" width="1080"/>
+<img src="img/Pasted image 20240719200158.png" alt="Example Image" width="450"/>
 
 Let using default echo and actual hex values , because `A` is confuse to analyze and change the payload order
 
