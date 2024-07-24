@@ -8,6 +8,7 @@ Welcome to the OverTheWire CTF Challenges Repository! This repository contains s
 - [Leviathan](/OverTheWire/Leviathan/)
 - [Natas](/OverTheWire/Natas/)
 - [Krypton](/OverTheWire/Krypton/)
+- [Narnia](/OverTheWire/Narnia/)
 
 ## Bandit
 
@@ -48,3 +49,13 @@ Krypton focuses on the basics of cryptography and teaches various methods of enc
 - **Topics Covered**: Classical ciphers, modern encryption techniques, cryptographic attacks, and more.
 
 - [Solution](/OverTheWire/Krypton/)
+
+## Narnia
+
+Narnia focuses on binary exploitation and teaches various methods of exploiting vulnerabilities in binary files. These exercises cover topics such as buffer overflows, format string vulnerabilities, and more.
+
+- **Location**: [Narnia](https://overthewire.org/wargames/narnia/)
+- **Difficulty**: Beginner to Intermediate
+- **Topics Covered**: Buffer overflows, format string vulnerabilities, binary exploitation, and more.
+
+- [Solution](/OverTheWire/Narnia/)
