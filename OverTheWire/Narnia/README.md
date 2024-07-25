@@ -42,7 +42,7 @@ total 152
 -r--r----- 1 narnia8 narnia8  1269 Jun 20 04:08 narnia8.c
 ```
 
-we have bunch of c files with its executable binary files also , see the previous level exe had a suid permission , so that we can get the next level password. let see `narnia0.c`
+we have bunch of c files with its executable binary files also , see the previous level exe had a suid permission , so that we can get the next level password using binaries. let see `narnia0.c`
 
 using this command `find / -name 'narnia*' -print 2>/dev/null` and found that next level passwords stored in this path `/etc/narnia_pass/`
 
@@ -74,7 +74,7 @@ int main(){
 }
 ```
 
-based on the above file we know that `if val == 0xdeadbeef` , we get suid with bash shell , that the way.
+based on the above file we know that `if val == 0xdeadbeef` , we get suid with bash shell , that's the way.
 by analysis on c file , `buf` variable is user manipulative by `scanf()` , but its also format specifier with `%24s` (24 Bytes) and actual `buf` declared with 20 Bytes
 
 ```
